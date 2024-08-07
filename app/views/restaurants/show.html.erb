@@ -1,0 +1,37 @@
+<div class="container">
+
+  <h1><%=@restaurant.name%></h1>
+
+  <div class="card-image">
+      <%= image_tag "https://loremflickr.com/720/320/#{@restaurant.category}cuisine", alt: "food" %>
+
+      <div>
+        <p><i class="fa-solid fa-utensils"></i> <%=@restaurant.category%> </p>
+        <p><i class="fa-solid fa-location-pin"></i> <%=@restaurant.address%> </p>
+        <p><i class="fa-solid fa-phone"></i> <%=@restaurant.phone_number%></p>
+      </div>
+
+      <div class="card p-3">
+        <% @restaurant.reviews.each do |review| %>
+          <p><i class="fa-solid fa-user"></i> Anonymous User </p>
+          <p><%= '<i class="fa-solid fa-star" style="color: #FFD43B;"></i>'.html_safe *  review.rating %></p>
+          <p><%= review.content %> </p>
+        <%end%>
+      </div>
+
+      <div class="card p-3">
+        <%= simple_form_for [@restaurant, @review] do |f| %>
+          <%= f.input :rating, collection: 1..5 %>
+          <%= f.input :content %>
+          <%= f.button :submit, class: "btn btn-success" %>
+        <% end %>
+      </div>
+
+      <div>
+        <%= link_to restaurants_path do %>
+        <i class="fa-solid fa-circle-left"></i> Go back
+        <%end%>
+      </div>
+
+  </div>
+</div>
